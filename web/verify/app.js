@@ -16,7 +16,7 @@ const app = express();
 
 // CORS & Parsers
 app.use(cors({
-    origin: ['https://verify.basiq360.com', 'http://localhost:5173', 'http://localhost:4173', 'http://194.195.112.221:5173'],
+    origin: ['https://verify.basiq360.com', 'http://localhost:5173', 'http://localhost:4173', 'http://194.195.112.221:5173', 'https://quickverify.basiq360.com'],
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
