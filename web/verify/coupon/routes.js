@@ -43,7 +43,6 @@ router.post(
 
 router.post(
   "/productVerify",
-  verifyToken,
   payloadCheck(getProductVerify),
   asyncHandler(getProductVerify)
 );
