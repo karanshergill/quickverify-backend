@@ -435,7 +435,7 @@ export async function productVerify(query, req) {
     return {
       statusCode: 200,
       success: true,
-      message: "Coupon Verified Successfully",
+      message: "Product Verified Successfully",
       result: updated
     };
 

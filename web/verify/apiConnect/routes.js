@@ -23,16 +23,32 @@ router.get("/api/coupons", auth, async (req, res) => {
     const offset = parseInt(req.query.offset || "0", 10);
 
     const rows = await prisma.couponInfo.findMany({
-      select: { linkUniqueCouponCc: true },
+      select: { 
+        linkUniqueCouponCc: true,
+        uniqueCode: true,
+        dateCreated: true 
+      },
       skip: offset,
       take: limit,
       orderBy: { id: "asc" },
     });
 
     const data = rows
-      .map((r) => (r.linkUniqueCouponCc || "").trim())
-      .filter(Boolean)
-      .map((v) => ({ coupon: v }));
+      .map((r) => {
+        const coupon = (r.linkUniqueCouponCc || "").trim();
+        if (!coupon) return null;
+        
+        const date = r.dateCreated 
+          ? r.dateCreated.toISOString().split('T')[0]
+          : null;
+        
+        return { 
+          "Date": date,
+          "Coupon Code": coupon,
+          "Token": r.uniqueCode || null
+        };
+      })
+      .filter(Boolean);
 
     res.json({ success: true, count: data.length, data });
   } catch (err) {
